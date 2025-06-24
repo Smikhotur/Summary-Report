@@ -5,6 +5,7 @@ import React from 'react';
 
 import { ExcelReaderWriter } from '@/Components/ExcelProcessor';
 import { ExcelMergerExcelJS } from '@/Components/ExcelMerger';
+import { ExcelProcessorForPasport } from '@/Components/ExcelProcessorForPasport';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,10 @@ const App: React.FC = () => {
       {/* <ExcelReaderWriter />
       <br />
       <ExcelMergerExcelJS /> */}
+      <br />
+      <br />
+      <br />
+      <ExcelProcessorForPasport />
     </div>
   );
 };
