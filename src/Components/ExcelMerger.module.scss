@@ -1,0 +1,71 @@
+.mergeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fefefe;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+
+  span {
+    font-weight: 400;
+    color: #666;
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 14px;
+    color: #333;
+  }
+
+  input[type='file'] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      border-color: #007bff;
+    }
+  }
+}
+
+.mergeButton {
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
