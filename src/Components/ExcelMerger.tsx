@@ -28,6 +28,8 @@ const previousMonthName = monthNamesUa[previousMonthIndex];
 export const ExcelMergerExcelJS: React.FC = () => {
   const [sourceFile, setSourceFile] = useState<File | null>(null);
   const [targetFile, setTargetFile] = useState<File | null>(null);
+  const [sourceFileName, setSourceFileName] = useState<string>('');
+  const [targetFileName, setTargetFileName] = useState<string>('');
 
   const handleMerge = async () => {
     if (!sourceFile || !targetFile) {
@@ -157,9 +159,7 @@ export const ExcelMergerExcelJS: React.FC = () => {
   return (
     <div className="wrapper">
       <div className={styles.mergeContainer}>
-        <h3 className={styles.title}>
-          Злиття Excel файлів <span>(A2–A5 → K, G, N, P, R, V, Z)</span>
-        </h3>
+        <h3 className={styles.title}>Злиття Excel файлів</h3>
 
         <div className={styles.field}>
           <label htmlFor="source">1️⃣ Джерело (xlsx з даними):</label>
@@ -167,8 +167,15 @@ export const ExcelMergerExcelJS: React.FC = () => {
             id="source"
             type="file"
             accept=".xlsx"
-            onChange={(e) => setSourceFile(e.target.files?.[0] || null)}
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              setSourceFile(file);
+              setSourceFileName(file?.name || '');
+            }}
           />
+          {sourceFileName && (
+            <p className={styles.fileName}>📄 Обраний файл: {sourceFileName}</p>
+          )}
         </div>
 
         <div className={styles.field}>
@@ -177,8 +184,15 @@ export const ExcelMergerExcelJS: React.FC = () => {
             id="target"
             type="file"
             accept=".xlsx"
-            onChange={(e) => setTargetFile(e.target.files?.[0] || null)}
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              setTargetFile(file);
+              setTargetFileName(file?.name || '');
+            }}
           />
+          {targetFileName && (
+            <p className={styles.fileName}>📄 Обраний файл: {targetFileName}</p>
+          )}
         </div>
 
         <button
