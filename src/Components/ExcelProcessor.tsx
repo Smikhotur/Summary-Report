@@ -99,7 +99,7 @@ export const ExcelReaderWriter: React.FC = () => {
   return (
     <div className="wrapper">
       <div className={styles.uploadContainer}>
-        <h3 className={styles.title}>Завантаж карти обліку машин</h3>
+        <h3 className={styles.title}>Завантаж картки обліку машин</h3>
 
         <label className={styles.customFileInput}>
           <input
