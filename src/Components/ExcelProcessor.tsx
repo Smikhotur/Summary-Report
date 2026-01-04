@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { endOfMonth } from 'date-fns';
+import { subMonths, endOfMonth } from 'date-fns';
 
 import styles from './UploadExcelFiles.module.scss';
 
@@ -39,15 +39,15 @@ export const ExcelReaderWriter: React.FC = () => {
         const worksheet = workbook.Sheets[sheetName];
 
         const rawCarNumber = worksheet['A5']?.v ?? 'Невідомо';
-        const match = rawCarNumber?.match(/[BВ][MМ]\s*\d+\s*[GГ]/i);
+        const match = rawCarNumber?.match(/([BВ][MМ]|[HН][MМ])\s*\d+\s*[GГ]/i);
         const carNumber = match ? match[0].replace(/\D/g, '') : 'Невідомо';
 
-        // 📅 Отримання кількості днів у місяці
-        const now = new Date();
-        const daysInMonth = endOfMonth(now).getDate(); // 30 або 31
+        // 📅 Отримання попереднього місяця
+        const previousMonth = subMonths(new Date(), 1);
+        const daysInPreviousMonth = endOfMonth(previousMonth).getDate(); // 30 або 31
 
         // 🟩 Динамічне визначення останнього рядка для значень
-        const endRow = daysInMonth === 31 ? 45 : 44;
+        const endRow = daysInPreviousMonth === 31 ? 45 : 44;
 
         const km = worksheet[`E${endRow}`]?.v ?? '';
         const prZva = worksheet[`F${endRow}`]?.v ?? '';
@@ -56,10 +56,10 @@ export const ExcelReaderWriter: React.FC = () => {
         const naZaNo = worksheet[`J${endRow}`]?.v ?? '';
         const maslo = worksheet[`M${endRow}`]?.v ?? '';
 
-        // 📊 Обробка days — рахуємо кількість заповнених клітинок у E15–E44 або E15–E45
+        // 📊 Обробка days — рахуємо кількість заповнених клітинок у E15–E44 або E15–E43
         let days = 0;
         const startRow = 15;
-        const lastRow = daysInMonth === 31 ? 44 : 43;
+        const lastRow = daysInPreviousMonth === 31 ? 44 : 43;
 
         for (let row = startRow; row <= lastRow; row++) {
           const cell = worksheet[`E${row}`];
@@ -98,7 +98,7 @@ export const ExcelReaderWriter: React.FC = () => {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           });
 
-          saveAs(blob, 'зведений_файл.xlsx');
+          saveAs(blob, 'зведений_файл_для_зведеної_відомості.xlsx');
           setIsLoading(false);
         }
       };
